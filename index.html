@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Game – Visual Overview</title>
+    <style>
+        body {
+            background:#f0f2f5;
+            font-family:Arial, Helvetica, sans-serif;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin:0;
+            padding:20px;
+        }
+        h1 {
+            margin-bottom:10px;
+            color:#333;
+        }
+        #gameCanvas {
+            background:#000;
+            border:2px solid #555;
+        }
+        .info {
+            margin-top:15px;
+            color:#555;
+            max-width:720px;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Snake Game (Python pygame)</h1>
+    <canvas id="gameCanvas" width="720" height="480"></canvas>
+    <div class="info">
+        <p>This canvas shows the initial state of the classic Snake game implemented with <code>pygame</code> in Python.</p>
+        <ul style="list-style:none; padding:0;">
+            <li><strong>Snake:</strong> Green squares (4 blocks) starting at position (100, 50) moving right.</li>
+            <li><strong>Fruit:</strong> Red square placed at a random location on the grid.</li>
+            <li><strong>Score:</strong> 0 (displayed in white at the top‑left).</li>
+        </ul>
+        <p>The actual game runs in a separate window when the Python script is executed.</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const blockSize = 10;
+        const snakeColor = '#00ff00';
+        const fruitColor = '#ff0000';
+        const scoreColor = '#ffffff';
+        const font = '20px "Times New Roman"';
+
+        // Initial snake body positions (same as Python code)
+        const snakeBody = [
+            [100, 50],
+            [90, 50],
+            [80, 50],
+            [70, 50]
+        ];
+
+        // Random fruit position (grid of 10px)
+        const windowX = canvas.width;
+        const windowY = canvas.height;
+        const fruitPos = [
+            Math.floor(Math.random() * (windowX / blockSize)) * blockSize,
+            Math.floor(Math.random() * (windowY / blockSize)) * blockSize
+        ];
+
+        // Draw background
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw snake
+        ctx.fillStyle = snakeColor;
+        snakeBody.forEach(pos => {
+            ctx.fillRect(pos[0], pos[1], blockSize, blockSize);
+        });
+
+        // Draw fruit
+        ctx.fillStyle = fruitColor;
+        ctx.fillRect(fruitPos[0], fruitPos[1], blockSize, blockSize);
+
+        // Draw score
+        ctx.fillStyle = scoreColor;
+        ctx.font = font;
+        ctx.fillText('Score : 0', 10, 30);
+    </script>
+</body>
+</html>
