@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAHE COLLECTOR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 560px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    button {
+      margin: 5px 0;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    #output {
+      margin-top: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to PAHE COLLECTOR!</h1>
+
+  <button onclick="checkPahe()">1. Check pahe</button><br>
+  <button onclick="takePahe()">2. Take pahe</button><br>
+  <button onclick="depositPahe()">3. Pahe de</button><br>
+  <button onclick="exitMenu()">4. EXIT</button>
+
+  <div id="output" aria-live="polite"></div>
+
+  <script>
+    // BigInt preserves the full value of this very large balance.
+    let balance = 50500593874444444448397972987197287398173987398126391264876486278621764783467348237498379483949237483749032740932047239874872729n;
+
+    function show(message) {
+      document.getElementById("output").textContent = message;
+    }
+
+    function checkPahe() {
+      show(`Your pahe is ${balance}`);
+    }
+
+    function takePahe() {
+      const input = prompt("Kitne pahe nikalne hai:");
+      if (input === null) return;
+
+      if (!/^\d+$/.test(input)) {
+        show("Please enter a valid non-negative whole number.");
+        return;
+      }
+
+      const amount = BigInt(input);
+
+      if (amount <= balance) {
+        balance -= amount;
+        show(`pahe nikal liye\nBalance= ${balance}`);
+      } else {
+        show("Pahe Kam padre hain bhai");
+      }
+    }
+
+    function depositPahe() {
+      const input = prompt("Kitne pahe bharne hai:");
+      if (input === null) return;
+
+      if (!/^\d+$/.test(input)) {
+        show("Please enter a valid non-negative whole number.");
+        return;
+      }
+
+      balance += BigInt(input);
+      show(`pahe deposited\nBalance ${balance} bacha hai`);
+    }
+
+    function exitMenu() {
+      show("Nikal!");
+    }
+  </script>
+</body>
+</html>
